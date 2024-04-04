@@ -4,6 +4,13 @@
   <NonVisualComponents>
     <Component class="net.sourceforge.jdatepicker.util.JDatePickerUtil" name="jDatePickerUtil1">
     </Component>
+    <Component class="com.raven.datechooser.DateChooser" name="dateChooser1">
+      <Properties>
+        <Property name="textRefernce" type="javax.swing.JTextField" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="dctanggal"/>
+        </Property>
+      </Properties>
+    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>

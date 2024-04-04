@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import koneksi.conek;
 
 /**
  *
@@ -58,6 +59,7 @@ public class logins extends javax.swing.JFrame {
         getContentPane().add(txtpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 380, 380, -1));
 
         btnlogin.setBorder(null);
+        btnlogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnlogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnloginActionPerformed(evt);
@@ -66,21 +68,21 @@ public class logins extends javax.swing.JFrame {
         getContentPane().add(btnlogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(565, 460, 140, 20));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/login/LOG IN FIX resize.png"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1330, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1250, -1));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnloginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnloginActionPerformed
         // TODO add your handling code here:
         try{
-            Connection c = koneksi.getkoneksi();
-            Statement s = c.createStatement();
-            
+            Statement statement=(Statement)conek.GetConnection().createStatement();
+          
             String sql = "SELECT * FROM admin WHERE nip ='" + txtnip.getText() +"' and password ='" + txtpass.getText() +"'";
-            ResultSet r = s.executeQuery(sql);
+            ResultSet res=statement.executeQuery(sql);
             
-            if(r.next()){
+            if(res.next()){
                 JOptionPane.showMessageDialog(null, "Login Berhasil");
                 this.dispose();
             }else{

@@ -8,7 +8,9 @@ import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
+import koneksi.conek;
 
 /**
  *
@@ -84,6 +86,7 @@ public class signups extends javax.swing.JFrame {
         getContentPane().add(txtmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 440, 380, 30));
 
         btnregis.setBorder(null);
+        btnregis.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnregis.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnregisActionPerformed(evt);
@@ -100,6 +103,7 @@ public class signups extends javax.swing.JFrame {
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnregisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregisActionPerformed
@@ -115,7 +119,7 @@ public class signups extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "NIP atau password tidak boleh kosong");
         }else{
             try{
-                Connection c = koneksi.getkoneksi();
+                Connection c = (Connection)(Statement)conek.GetConnection();
                 String sql = "INSERT INTO admin VALUES (?, ?, ?, ?, ?, ?)";
                 PreparedStatement p = c.prepareStatement(sql);
                 p.setString(1, nip);

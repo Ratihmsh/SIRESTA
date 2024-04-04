@@ -30,6 +30,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.xml.ws.Response;
 import jdk.nashorn.internal.ir.RuntimeNode.Request;
+import koneksi.conek;
 
 /**
  *
@@ -84,8 +85,8 @@ public class masuk extends javax.swing.JFrame {
     
     void datatable() {
         try {
-            Statement statement=conek.GetConnection().createStatement();
-            ResultSet res = (ResultSet) statement.executeQuery("select * from masuk");
+            Statement statement=(Statement)conek.GetConnection().createStatement();
+            ResultSet res=statement.executeQuery("select * from masuk");
             DefaultTableModel tbl = new DefaultTableModel();
             tbl.addColumn("Nomor Surat");
             tbl.addColumn("Pengirim");
@@ -134,6 +135,7 @@ public class masuk extends javax.swing.JFrame {
     private void initComponents() {
 
         jDatePickerUtil1 = new net.sourceforge.jdatepicker.util.JDatePickerUtil();
+        dateChooser1 = new com.raven.datechooser.DateChooser();
         cmbjenis = new javax.swing.JComboBox<>();
         profil = new javax.swing.JLabel();
         nip = new javax.swing.JLabel();
@@ -159,6 +161,8 @@ public class masuk extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         dctanggal = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+
+        dateChooser1.setTextRefernce(dctanggal);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -381,7 +385,7 @@ try {
         + "OR perihal LIKE '%" + txtcari.getText() + "%' "
         + "OR hari_tanggal LIKE '%" + txtcari.getText() + "%' "
         + "OR jenis LIKE '%" + txtcari.getText() + "%' "
-        + "OR surat LIKE '%" + txtsurat.getText()+ "%'");
+        + "OR surat LIKE '%" + txtcari.getText()+ "%'");
 
     DefaultTableModel tbl = new DefaultTableModel();
     tbl.addColumn("Nomor Surat");
@@ -471,7 +475,7 @@ try {
         txtdari.setText(tableModel.getValueAt(row, 1).toString());
         txtkepada.setText(tableModel.getValueAt(row, 2).toString());
         txtperihal.setText(tableModel.getValueAt(row, 3).toString());
-        dctanggal.setText(tableModel.getValueAt(row, 3).toString());
+        dctanggal.setText(tableModel.getValueAt(row, 4).toString());
         cmbjenis.setSelectedItem(tableModel.getValueAt(row,5).toString());
         txtsurat.setText(tableModel.getValueAt(row, 6).toString());
         
@@ -570,6 +574,7 @@ try {
     private javax.swing.JButton btnshare;
     private javax.swing.JButton btnupload;
     private javax.swing.JComboBox<String> cmbjenis;
+    private com.raven.datechooser.DateChooser dateChooser1;
     private javax.swing.JTextField dctanggal;
     private javax.swing.JButton jButton1;
     private net.sourceforge.jdatepicker.util.JDatePickerUtil jDatePickerUtil1;
