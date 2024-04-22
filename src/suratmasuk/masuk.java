@@ -6,6 +6,7 @@ package suratmasuk;
 
 
 //import koneksi.conn;
+import adminkalender.edit;
 import com.mysql.cj.protocol.Message;
 import static com.sun.management.jmx.Trace.isSelected;
 import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
@@ -23,6 +24,7 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import static javax.management.Query.value;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -94,7 +96,7 @@ public class masuk extends javax.swing.JFrame {
             tbl.addColumn("Perihal");
             tbl.addColumn("Hari/Tanggal");
             tbl.addColumn("Jenis Surat");
-            tbl.addColumn("Surat");
+            tbl.addColumn("Direktori Surat");
             tblmasuk.setModel(tbl);
             while (res.next()) {
                 tbl.addRow(new Object[]{
@@ -158,7 +160,7 @@ public class masuk extends javax.swing.JFrame {
         btnkeluar = new javax.swing.JButton();
         btnadmin = new javax.swing.JButton();
         btnkalender = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnmove = new javax.swing.JButton();
         dctanggal = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
 
@@ -186,7 +188,7 @@ public class masuk extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nomor Surat", "Pengirim", "Kepada", "Perihal", "Hari/Tanggal", "Jenis Surat", "Surat"
+                "Nomor Surat", "Pengirim", "Kepada", "Perihal", "Hari/Tanggal", "Jenis Surat", "Direktori Surat"
             }
         ) {
             Class[] types = new Class [] {
@@ -329,13 +331,13 @@ public class masuk extends javax.swing.JFrame {
         btnkalender.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         getContentPane().add(btnkalender, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 70, 20));
 
-        jButton1.setText("Move to Act");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnmove.setText("Move to Act");
+        btnmove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnmoveActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 350, -1, -1));
+        getContentPane().add(btnmove, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 350, 70, -1));
         getContentPane().add(dctanggal, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 440, 170, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/suratmasuk/MASUK(1).png"))); // NOI18N
@@ -394,7 +396,7 @@ try {
     tbl.addColumn("Perihal");
     tbl.addColumn("Hari/Tanggal");
     tbl.addColumn("Jenis Surat");
-    tbl.addColumn("Surat");
+    tbl.addColumn("Direktori Surat");
 
     boolean found = false; // Menandai apakah hasil pencarian ditemukan atau tidak
     while (res.next()) {
@@ -518,12 +520,53 @@ try {
     }//GEN-LAST:event_btnuploadActionPerformed
 
     private void btnshareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnshareActionPerformed
+        int selectedRow = tblmasuk.getSelectedRow();
+        if(selectedRow >= 0) {
+            
+            // Mengambil data direktori surat dari baris yang dipilih
+            Object direktoriSurat = tblmasuk.getModel().getValueAt(selectedRow, 6);
 
+            // Membuat instance dari form `masuk_share`
+            masuk_share a = new masuk_share();
+
+            // Memanggil metode untuk menetapkan direktori surat pada form `masuk_share`
+            a.setDirektori(direktoriSurat.toString());
+
+            // Menampilkan form `masuk_share`
+            a.setVisible(true);
+            a.pack();
+            a.setDefaultCloseOperation(masuk_share.DISPOSE_ON_CLOSE);
+            
+        } else {
+            // Tampilkan pesan error jika tidak ada baris yang dipilih
+            JOptionPane.showMessageDialog(this, "Silahkan pilih baris pada tabel terlebih dahulu", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
     }//GEN-LAST:event_btnshareActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnmoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmoveActionPerformed
+        int selectedRow = tblmasuk.getSelectedRow();
+        if(selectedRow >= 0) {
+            
+            // Mengambil data direktori surat dari baris yang dipilih
+            Object direktoriSurat = tblmasuk.getModel().getValueAt(selectedRow, 6);
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+            // Membuat instance dari form `masuk_share`
+            masuk_move a = new masuk_move();
+
+            // Memanggil metode untuk menetapkan direktori surat pada form `masuk_share`
+            a.setDirektori(direktoriSurat.toString());
+
+            // Menampilkan form `masuk_share`
+            a.setVisible(true);
+            a.pack();
+            a.setDefaultCloseOperation(masuk_move.DISPOSE_ON_CLOSE);
+            
+        } else {
+            // Tampilkan pesan error jika tidak ada baris yang dipilih
+            JOptionPane.showMessageDialog(this, "Silahkan pilih baris pada tabel terlebih dahulu", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnmoveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -568,6 +611,7 @@ try {
     private javax.swing.JButton btnhapus;
     private javax.swing.JButton btnkalender;
     private javax.swing.JButton btnkeluar;
+    private javax.swing.JButton btnmove;
     private javax.swing.JButton btnnotif;
     private javax.swing.JButton btnprint;
     private javax.swing.JButton btnprofil;
@@ -576,7 +620,6 @@ try {
     private javax.swing.JComboBox<String> cmbjenis;
     private com.raven.datechooser.DateChooser dateChooser1;
     private javax.swing.JTextField dctanggal;
-    private javax.swing.JButton jButton1;
     private net.sourceforge.jdatepicker.util.JDatePickerUtil jDatePickerUtil1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel nip;

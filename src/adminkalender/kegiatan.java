@@ -47,6 +47,7 @@ public class kegiatan extends javax.swing.JFrame {
         tbl.addColumn("kegiatan");
         
         tbl.addColumn("waktu");
+        tbl.addColumn("surat");
        
         table.setModel(tbl);
         try{
@@ -59,6 +60,7 @@ public class kegiatan extends javax.swing.JFrame {
                     res.getString("kegiatan"),
                     
                     res.getString("waktu"),
+                    res.getString("Surat"),
                     
             });
                 table.setModel(tbl);
@@ -124,13 +126,13 @@ public class kegiatan extends javax.swing.JFrame {
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "tanggal", "kegiatan", "waktu"
+                "tanggal", "kegiatan", "surat", "waktu"
             }
         ));
         table.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -208,6 +210,7 @@ public class kegiatan extends javax.swing.JFrame {
             tbl.addColumn("kegiatan");
             tbl.addColumn("date");
             tbl.addColumn("waktu");
+            tbl.addColumn("surat");
             
             table.setModel(tbl);
             
@@ -215,7 +218,8 @@ public class kegiatan extends javax.swing.JFrame {
                 tbl.addRow(new Object[]{
                         res.getString("kegiatan"),
                         res.getString("date"),
-                        res.getString("waktu")
+                        res.getString("waktu"),
+                        res.getString("surat"),
                 });
                 table.setModel(tbl);
             }
@@ -239,7 +243,6 @@ public class kegiatan extends javax.swing.JFrame {
             txtkegiatan.setText("");
             txttgl.setText("");
             txtwaktu.setText("");
-            
             txtkegiatan.requestFocus();  
         }catch (Exception t) {
             JOptionPane.showMessageDialog(null, "data gagal di HAPUS");
@@ -287,6 +290,7 @@ public class kegiatan extends javax.swing.JFrame {
         txtkegiatan.setText(nama);
         String jabatan = table.getValueAt(baris , 2).toString();
         txtwaktu.setText(jabatan);
+        String surat = table.getValueAt(baris,3).toString();
         
     }//GEN-LAST:event_tableMouseClicked
 
